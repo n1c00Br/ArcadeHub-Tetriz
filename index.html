@@ -28,17 +28,17 @@
       --txt:#f1f3f7; --dim:#aab1bd;
     }
     html,body{min-height:100%}
-    html{background:#22398a;-webkit-tap-highlight-color:transparent}
+    html{background:#122116;-webkit-tap-highlight-color:transparent}
     body{overscroll-behavior-y:contain;-webkit-touch-callout:none}
     button,.slot,.key{touch-action:manipulation}
     body{
       margin:0; font-family:'VT323',monospace; font-size:22px; color:var(--txt);
-      background:linear-gradient(180deg,#141f55 0%,#22398a 55%,#3157b8 100%) fixed;
+      background:radial-gradient(circle at center, #1b3d22 0%, #0d1e11 100%) fixed;
       overflow-x:hidden; overflow-x:clip; user-select:none; image-rendering:pixelated;
     }
     body::before{
       content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
-      background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+      background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
       background-size:6px 6px;
     }
     header,footer{position:relative;z-index:1}
@@ -139,9 +139,9 @@
     @media (max-width:640px){:root{--U:.72}}
     .pcard{--u:var(--U);--cut:calc(3px*var(--u));position:relative;box-sizing:border-box;flex:none;width:calc(80px*var(--u));height:calc(120px*var(--u));
       background:#f1f3f7;border:calc(3px*var(--u)) solid var(--ink);
-      box-shadow:inset calc(2px*var(--u)) calc(2px*var(--u)) 0 #fff,inset calc(-2px*var(--u)) calc(-2px*var(--u)) 0 #c3c8d2;
+      box-shadow:inset calc(2px*var(--u)) calc(2px*var(--u)) 0 #fff,inset calc(-2px*var(--u)) calc(-2px*var(--u)) 0 #c3c8d2, 0 4px 8px rgba(0,0,0,0.4);
       clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,calc(100% - var(--cut)) var(--cut),100% var(--cut),100% calc(100% - var(--cut)),calc(100% - var(--cut)) calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,var(--cut) 100%,var(--cut) calc(100% - var(--cut)),0 calc(100% - var(--cut)),0 var(--cut),var(--cut) var(--cut));
-      font-family:'Press Start 2P',monospace;user-select:none;transition:transform .08s steps(2)}
+      font-family:'Press Start 2P',monospace;user-select:none;transition:transform .12s cubic-bezier(0.2, 0, 0.2, 1), margin .12s ease}
     .pcard.cr{color:#c8334b}
     .pcard.cb{color:#1d2433}
     .pcard .sv{display:block}
@@ -167,10 +167,13 @@
     .pback.blue::before{content:'';position:absolute;inset:calc(5px*var(--u));
       background:repeating-linear-gradient(135deg,#f1f3f7 0,#f1f3f7 calc(5px*var(--u)),#2b4fb0 calc(5px*var(--u)),#2b4fb0 calc(10px*var(--u)))}
 
-    /* ===== MESA ===== */
-    .mesa{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.6fr) minmax(0,1fr);grid-template-rows:auto 1fr auto;gap:8px;padding:12px;width:100%;
-      background-color:#0f2160;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:6px 6px;
-      border:3px solid var(--ink);box-shadow:inset 3px 3px 0 #0a1642,inset -3px -3px 0 #3d63c9,inset 0 0 0 6px #1a2c78}
+    /* ===== MESA DE POKER (VERDE FELTRO) ===== */
+    .mesa{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.6fr) minmax(0,1fr);grid-template-rows:auto 1fr auto;gap:8px;padding:16px;width:100%;
+      background-color:#0b5326;
+      background-image:radial-gradient(ellipse at center, #116832 0%, #083f1c 70%, #052a12 100%),
+                       repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px);
+      border:8px solid #2b1810; border-radius:16px;
+      box-shadow:inset 0 0 20px rgba(0,0,0,0.6), inset 0 0 0 2px #041d0c, 0 8px 24px rgba(0,0,0,0.7)}
     .seat{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
     .seat.s-t{grid-column:2;grid-row:1}
     .seat.s-l{grid-column:1;grid-row:2;justify-content:center}
@@ -178,11 +181,23 @@
     .seat.s-b{grid-column:1/4;grid-row:3}
     .seat .shand{display:flex;align-items:center;justify-content:center}
     .seat.mini .pcard{--u:calc(var(--U)*.5)}
-    .seat.s-t .shand .pcard+.pcard{margin-left:calc(-14px*var(--U))}
+    .seat.s-t .shand .pcard+.pcard{margin-left:calc(-26px*var(--U))}
     .seat.s-l .shand,.seat.s-r .shand{flex-direction:column}
     .seat.s-l .shand .pcard+.pcard,.seat.s-r .shand .pcard+.pcard{margin-top:calc(-38px*var(--U))}
-    .seat.s-b .shand{gap:calc(10px*var(--U));flex-wrap:nowrap}
-    .seat .seatname{font-size:9px;padding:4px 10px}
+    
+    /* CARTAS EMPILHADAS NA MÃO DO JOGADOR (LEQUE DE POKER) */
+    .seat.s-b .shand{gap:0;flex-wrap:nowrap;padding:10px 20px;perspective:600px}
+    .seat.s-b .shand > div{position:relative;margin-left:calc(-28px*var(--U));transition:transform .15s ease, margin .15s ease}
+    .seat.s-b .shand > div:first-child{margin-left:0}
+    
+    /* Rotação e inclinação das cartas para criar o efeito leque da imagem */
+    .seat.s-b .shand > div:nth-child(1) .pcard { transform: rotate(-6deg) translateY(2px); }
+    .seat.s-b .shand > div:nth-child(2) .pcard { transform: rotate(0deg) translateY(-2px); z-index:2; }
+    .seat.s-b .shand > div:nth-child(3) .pcard { transform: rotate(6deg) translateY(2px); z-index:3; }
+    
+    .seat.s-b .shand .pcard.can:hover{transform:translateY(calc(-20px*var(--U))) scale(1.05) rotate(0deg)!important; z-index:10!important; box-shadow:0 12px 20px rgba(0,0,0,0.6)}
+    
+    .seat .seatname{font-size:9px;padding:4px 10px;background:#132317;border-color:#06080d}
     .seat.turn .seatname{box-shadow:inset 2px 2px 0 #0d0f14,inset -2px -2px 0 #4c525d,0 0 0 3px var(--y);color:var(--y)}
     .zone{grid-column:2;grid-row:2;position:relative;min-height:calc(410px*var(--U))}
     .pl{position:absolute}
@@ -191,7 +206,6 @@
     .pl-l{left:0;top:50%;margin-top:calc(-60px*var(--U))}
     .pl-r{right:0;top:50%;margin-top:calc(-60px*var(--U))}
     .hand-me .pcard.can{cursor:pointer}
-    .hand-me .pcard.can:hover{transform:translateY(calc(-12px*var(--U)))}
     .hand-me .pcard.dim{filter:brightness(.8)}
     .bubble{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:6;pointer-events:none;white-space:nowrap;
       font-family:'Press Start 2P',monospace;font-size:clamp(14px,3.6vw,22px);color:var(--y);text-shadow:3px 3px 0 #000,-1px -1px 0 #000;
@@ -206,7 +220,7 @@
     .logbox div+div{color:var(--dim)}
     .vira{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:4px}
     .vira .pcard{--u:calc(var(--U)*.9)}
-    .vira .plate{font-size:9px!important;padding:3px 8px!important}
+    .vira .plate{font-size:9px;padding:3px 8px}
     .pl{z-index:2}
   </style>
 </head>
@@ -291,7 +305,7 @@
       </div>
     </section>
 
-    <!-- TRUCO PAULISTA -->
+    <!-- TRUCO PAULISTA / MINEIRO -->
     <section id="sec-truco" class="w-full max-w-4xl hidden flex flex-col items-center">
       <div id="trucoMenu" class="hud cut w-full max-w-lg my-4">
         <h2 id="trMenuTitle" class="ttl text-base sm:text-xl t-y text-center mb-4">TRUCO PAULISTA</h2>
@@ -301,11 +315,32 @@
           <button onclick="startTruco(4)" class="slot cut slot-y w-full">2 x 2 &mdash; VOCÊ + PARCEIRO BOT</button>
         </div>
         <div class="xp my-5"></div>
+        <h3 class="ttl text-xs t-c mb-3 text-center">JOGAR ONLINE COM AMIGOS</h3>
+        <div id="trOnlineReq" class="t-r text-xl mb-3 text-center hidden">* Faça login para jogar online!</div>
+        <div class="space-y-3">
+          <button onclick="createTrucoRoom(2)" class="slot cut slot-y w-full">CRIAR SALA 1 x 1</button>
+          <button onclick="createTrucoRoom(4)" class="slot cut slot-y w-full">CRIAR SALA 2 x 2 (ATÉ 4 JOGADORES)</button>
+          <div class="flex gap-2 items-stretch">
+            <input type="text" id="trJoinInput" placeholder="NICKNAME DO HOST..." class="field cut uppercase flex-grow">
+            <button onclick="joinTrucoRoom()" class="slot cut slot-g">ENTRAR</button>
+          </div>
+        </div>
+        <div class="xp my-5"></div>
         <details class="plate" style="display:block">
           <summary class="ttl t-c cursor-pointer" style="font-size:10px;line-height:1.8">COMO JOGAR</summary>
           <div id="trRules" class="text-xl mt-3" style="line-height:1.1"></div>
         </details>
         <div class="mt-4 text-center"><button onclick="switchTab('baralho')" class="slot cut slot-sm slot-r">&#9668; VOLTAR PARA A PASTA</button></div>
+      </div>
+
+      <div id="trucoLobby" class="hud cut w-full max-w-lg my-4 hidden">
+        <h2 id="trLobbyTitle" class="ttl text-base sm:text-xl t-y text-center mb-2">SALA</h2>
+        <div class="text-center text-2xl t-dim mb-3">Código da sala: <span id="trLobbyCode" class="t-c"></span></div>
+        <div class="xp mb-4"></div>
+        <div id="trLobbySlots" class="space-y-2 mb-4"></div>
+        <div id="trLobbyMsg" class="text-xl t-dim text-center mb-3"></div>
+        <button id="trLobbyStart" onclick="startTrucoOnline()" class="slot cut slot-g w-full hidden">&#9654; INICIAR PARTIDA</button>
+        <div class="mt-3 text-center"><button onclick="leaveTrucoRoom()" class="slot cut slot-sm slot-r">&#9668; SAIR DA SALA</button></div>
       </div>
 
       <div id="trucoGame" class="hidden w-full flex flex-col items-center gap-3 my-2">
@@ -510,7 +545,7 @@
     <div class="hud cut text-center t-dim text-xl" style="padding:8px 12px">ARCADEHUB &copy; 2026 — Tetris e Jogos de Baralho no Navegador</div>
   </footer>
 
-  <!-- TRUCO PAULISTA: lógica do jogo -->
+  <!-- TRUCO PAULISTA / MINEIRO: lógica do jogo -->
   <script>
   (function () {
     'use strict';
@@ -662,27 +697,33 @@
     }
 
     // ---------- estado ----------
-    let G = null, GID = 0;
+    let G = null, GID = 0;                       // motor (só no jogo local ou no host)
+    let ROLE = 'local';                          // 'local' | 'host' | 'guest'
+    let VIEW = { pub: null, myHand: [], mySeat: 0, seen: {} };
+    let NET = null;                              // conexão da sala online
     const alive = (id) => G && G.id === id;
     const teamOf = (seat) => seat % 2;
     const nextValue = (v) => (v === 1 ? 3 : v + 3);
     const callName = (v) => ({ 3: 'TRUCO', 6: 'SEIS', 9: 'NOVE', 12: 'DOZE' }[v]);
-    const isHuman = (seat) => seat === 0;
+    const gameKey = () => 'truco' + (pendingVariant === 'mineiro' ? 'm' : 'p');
 
-    function seatName(s) {
-      if (G.n === 2) return s === 0 ? 'VOCÊ' : 'PC';
-      return ['VOCÊ', 'PC 1', 'PARCEIRO', 'PC 2'][s];
+    // ---------- textos por perspectiva ----------
+    function seatLabel(s) {
+      const P = VIEW.pub, my = VIEW.mySeat, n = P.n;
+      if (s === my) return 'VOCÊ';
+      const nm = P.names[s];
+      if (nm) return String(nm).toUpperCase();
+      if (n === 2) return 'PC';
+      const rel = (s - my + n) % n;
+      return rel === 2 ? 'PARCEIRO' : (rel === 1 ? 'PC 1' : 'PC 2');
     }
-    function seatPos(s) {
-      if (G.n === 2) return s === 0 ? 'b' : 't';
-      return ['b', 'l', 't', 'r'][s];
+    const teamLabelV = (t) => (t === VIEW.mySeat % 2 ? 'NOSSO TIME' : 'TIME DELES');
+    function fmt(txt) {
+      return String(txt).replace(/\{S:(\d)\}/g, (m, i) => seatLabel(+i)).replace(/\{T:(\d)\}/g, (m, i) => teamLabelV(+i));
     }
-    const teamLabel = (t) => (t === 0 ? 'NÓS' : 'ELES');
-
     function say(txt) {
       G.log.unshift(txt);
       if (G.log.length > 3) G.log.length = 3;
-      $('trLog').innerHTML = G.log.map((l) => '<div>' + l + '</div>').join('');
     }
     function bubble(txt) {
       const id = G.id, my = ++G.bseq;
@@ -691,52 +732,209 @@
       setTimeout(() => { if (alive(id) && G.bseq === my) { G.bubble = null; render(); } }, 1500);
     }
 
-    // ---------- fluxo ----------
-    const COMMON_RULES = '<p class="mb-2"><span class="t-y">Baralho:</span> 40 cartas (sem 8, 9, 10 e coringas). Cada um recebe 3 cartas por mão.</p>' +
-      '<p class="mb-2"><span class="t-y">Mão:</span> melhor de 3 rodadas. Quem ganhar 2 vence a mão. Vence o jogo quem chegar a 12 pontos.</p>';
-    const END_RULES = '<p class="mb-2"><span class="t-y">Apostas:</span> a mão vale 1. Peça TRUCO (3), depois SEIS, NOVE e DOZE. O adversário aceita, corre (você ganha os pontos de antes) ou aumenta.</p>' +
-      '<p class="mb-2"><span class="t-y">Empates:</span> se a 1ª rodada empata, quem ganhar a 2ª leva a mão. Se a 2ª ou a 3ª empata, vale quem ganhou a 1ª. Se tudo empata, leva quem abriu a mão.</p>' +
-      '<p><span class="t-y">Mão de onze:</span> com 11 pontos você vê as cartas e escolhe jogar (vale 3) ou correr (o rival ganha 1). <span class="t-y">Mão de ferro:</span> 11 x 11, cartas às cegas, vale o jogo.</p>';
-    const VARIANTS = {
-      paulista: {
-        title: 'TRUCO PAULISTA',
-        rules: COMMON_RULES +
-          '<p class="mb-2"><span class="t-y">Vira:</span> depois de dar as cartas, uma carta é virada no meio da mesa. A <span class="t-y">manilha</span> é a carta de valor logo acima do vira (vira A &rarr; manilha 2; vira K &rarr; manilha A; vira 3 &rarr; manilha 4).</p>' +
-          '<p class="mb-2"><span class="t-y">Força:</span> manilha &gt; 3 &gt; 2 &gt; A &gt; K &gt; J &gt; Q &gt; 7 &gt; 6 &gt; 5 &gt; 4.</p>' +
-          '<p class="mb-2"><span class="t-y">Entre manilhas (naipe):</span> &clubs; paus (Zap) &gt; &hearts; copas &gt; &spades; espadas &gt; &diams; ouros.</p>' + END_RULES
-      },
-      mineiro: {
-        title: 'TRUCO MINEIRO',
-        rules: COMMON_RULES +
-          '<p class="mb-2"><span class="t-y">Força das cartas:</span> 3 &gt; 2 &gt; A &gt; K &gt; J &gt; Q &gt; 7 &gt; 6 &gt; 5 &gt; 4.</p>' +
-          '<p class="mb-2"><span class="t-y">Manilhas fixas (as mais fortes):</span> 4 de paus (Zap) &gt; 7 de copas &gt; A de espadas &gt; 7 de ouros.</p>' + END_RULES
+    // ---------- publicação do estado (host / local) ----------
+    function buildPub() {
+      const H = G.hand;
+      const P = {
+        variant: G.variant, n: G.n, names: G.names, score: G.score.slice(), log: G.log.slice(),
+        bubble: G.bubble ? { t: G.bubble, s: G.bseq } : null, lastPlay: G.lastPlay, final: G.final,
+        waitSeat: G.waiter ? G.waiter.seat : -1,
+        ask: G.ask ? { seat: G.ask.seat, text: G.ask.text, options: G.ask.options } : null,
+        canCall: (G.waiter && !G.ask && H) ? canCall(teamOf(G.waiter.seat)) : false, hand: null
+      };
+      if (H) {
+        P.hand = {
+          hid: H.hid, value: H.value, table: H.table, results: H.results, turn: H.turn, vira: H.vira, special: H.special,
+          over: H.over, winSeat: H.winSeat, pending: H.pending, counts: H.cards.map((a) => a.length), banner: H.banner,
+          reveal: H.reveal ? { to: H.reveal.to, from: H.reveal.from, cards: H.cards[H.reveal.from] } : null
+        };
       }
-    };
+      return P;
+    }
+    function render() {
+      if (!G) return;
+      const pub = buildPub();
+      const hands = G.hand ? G.hand.cards : [];
+      VIEW.pub = pub; VIEW.mySeat = G.mySeat;
+      VIEW.myHand = hands[G.mySeat] ? hands[G.mySeat].slice() : [];
+      draw();
+      if (G.online && NET) netWrite(pub, hands);
+    }
+    function netWrite(pub, hands) {
+      const rt = window.__rt, upd = {};
+      const ps = JSON.stringify(pub);
+      if (ps !== NET.lastPub) { NET.lastPub = ps; upd.pub = ps; }
+      hands.forEach((h, s) => {
+        if (!G.humans[s]) return;
+        const hs = JSON.stringify(h);
+        if (NET.lastH[s] !== hs) { NET.lastH[s] = hs; upd['h' + s] = hs; }
+      });
+      if (Object.keys(upd).length) rt.update(NET.ref, upd).catch(() => {});
+    }
 
-    window.openTruco = function (variant) {
-      pendingVariant = variant === 'mineiro' ? 'mineiro' : 'paulista';
-      const V = VARIANTS[pendingVariant];
-      $('trMenuTitle').textContent = V.title;
-      $('trGameTitle').textContent = V.title;
-      $('trRules').innerHTML = V.rules;
-      switchTab('truco');
-      window.trucoOnLeave();
-      $('trucoMenu').classList.remove('hidden');
-      $('trucoGame').classList.add('hidden');
-    };
-    window.openBaralho = function () { switchTab('baralho'); };
-    window.trucoOnLeave = function () { G = null; GID++; };
-    window.leaveTruco = function () { switchTab('baralho'); };
+    // ---------- desenho (igual para local, host e convidado) ----------
+    function cues(P) {
+      const sn = VIEW.seen, H = P.hand;
+      if (!H) return;
+      if (sn.hid !== H.hid) { sn.hid = H.hid; sn.rounds = 0; sn.banner = false; sfx.deal(); }
+      if (P.lastPlay && P.lastPlay.seq !== sn.play) { sn.play = P.lastPlay.seq; sn.dropSeat = P.lastPlay.seat; sfx.play(); } else sn.dropSeat = -1;
+      if (P.bubble && P.bubble.s !== sn.bub) { sn.bub = P.bubble.s; if (/!$/.test(P.bubble.t) && P.bubble.t !== 'ZAP!') sfx.truco(); }
+      if (H.results.length > sn.rounds) { sn.rounds = H.results.length; sfx.round(); }
+      if (H.banner && !sn.banner) { sn.banner = true; (H.banner.team === VIEW.mySeat % 2) ? sfx.win() : sfx.lose(); }
+      if (P.final && !sn.final) { sn.final = true; (P.final.team === VIEW.mySeat % 2) ? sfx.win() : sfx.lose(); }
+      if (!P.final) sn.final = false;
+    }
 
-    window.startTruco = function (n) {
+    function draw() {
+      const P = VIEW.pub;
+      if (!P || !P.hand) return;
+      cues(P);
+      const H = P.hand, my = VIEW.mySeat, n = P.n, myTeam = my % 2;
+      $('trLog').innerHTML = P.log.map((l) => '<div>' + fmt(l) + '</div>').join('');
+      $('trScore0').textContent = P.score[myTeam]; $('trScore1').textContent = P.score[1 - myTeam];
+      $('trBar0').style.setProperty('--v', (P.score[myTeam] / 12 * 100) + '%');
+      $('trBar1').style.setProperty('--v', (P.score[1 - myTeam] / 12 * 100) + '%');
+      $('trValue').textContent = H.value;
+      $('trManilhaBox').classList.toggle('hidden', !H.vira);
+      if (H.vira) $('trManilha').textContent = manilhaRank(H.vira.r);
+      $('trRounds').innerHTML = [0, 1, 2].map((i) => {
+        const r = H.results[i];
+        if (r === undefined) return '<span class="rpip">&middot;</span>';
+        if (r === 'T') return '<span class="rpip t">=</span>';
+        return r === myTeam ? '<span class="rpip w">&#10003;</span>' : '<span class="rpip l">&#10005;</span>';
+      }).join('');
+
+      const myTurn = !H.over && !P.final && P.waitSeat === my && !P.ask && !H.pending && H.table[my] === null && H.turn === my;
+      const posOf = (s) => { const rel = (s - my + n) % n; return n === 2 ? (rel === 0 ? 'b' : 't') : ['b', 'l', 't', 'r'][rel]; };
+      let html = '';
+      for (let s = n - 1; s >= 0; s--) {
+        const pos = posOf(s), turn = !H.over && H.turn === s && !H.pending;
+        const nameP = '<div class="plate ttl seatname">' + seatLabel(s) + '</div>';
+        if (s === my) {
+          const blind = H.special === 'ferro';
+          html += '<div class="seat s-b hand-me' + (turn ? ' turn' : '') + '"><div class="shand">' +
+            VIEW.myHand.map((c, i) => '<div data-idx="' + i + '" data-act="card">' + (blind ? backHTML('red', myTurn ? 'can' : 'dim') : faceHTML(c, myTurn ? 'can' : 'dim')) + '</div>').join('') +
+            '</div>' + nameP + '</div>';
+        } else {
+          const showFace = H.reveal && H.reveal.to === my && H.reveal.from === s;
+          const cards = showFace ? H.reveal.cards.map((c) => faceHTML(c)).join('') : new Array(H.counts[s]).fill(0).map(() => backHTML('blue')).join('');
+          html += '<div class="seat s-' + pos + ' mini' + (turn ? ' turn' : '') + '">' + nameP + '<div class="shand">' + cards + '</div></div>';
+        }
+      }
+      html += '<div class="zone">';
+      if (H.vira) html += '<div class="vira">' + faceHTML(H.vira, '') + '<div class="plate ttl">VIRA</div></div>';
+      for (let s = 0; s < n; s++) {
+        const c = H.table[s];
+        if (!c) continue;
+        const cls = (VIEW.seen.dropSeat === s ? 'drop ' : '') + (H.winSeat === s ? 'win' : '');
+        html += '<div class="pl pl-' + posOf(s) + '">' + faceHTML(c, cls) + '</div>';
+      }
+      html += '</div>';
+      if (H.banner && !P.final) {
+        const mine = H.banner.team === myTeam;
+        html += '<div class="ov" data-act="skip"><div class="ttl ' + (mine ? 't-g' : 't-r') + '" style="font-size:clamp(14px,3.5vw,24px)">' + (mine ? 'MÃO NOSSA! +' : 'MÃO DELES +') + H.banner.pts + '</div>' +
+          (H.banner.sub ? '<div class="text-2xl t-dim">' + fmt(H.banner.sub) + '</div>' : '') +
+          '<div class="text-xl t-dim">toque para continuar</div></div>';
+      }
+      if (P.final) {
+        const win = P.final.team === myTeam;
+        const canAgain = ROLE !== 'guest';
+        html += '<div class="ov"><div class="ttl ' + (win ? 't-g' : 't-r') + '" style="font-size:clamp(16px,4vw,28px)">' + (win ? 'VOCÊS VENCERAM!' : 'ELES VENCERAM') + '</div>' +
+          '<div class="text-3xl t-y">' + P.score[myTeam] + ' x ' + P.score[1 - myTeam] + '</div>' +
+          '<div class="flex flex-wrap justify-center gap-3">' + (canAgain ? '<button class="slot cut slot-y" data-act="again">JOGAR DE NOVO</button>' : '<div class="text-xl t-dim">Aguardando o host...</div>') +
+          '<button class="slot cut slot-c" data-act="menu">SAIR</button></div></div>';
+      }
+      if (P.bubble) html += '<div class="bubble">' + P.bubble.t + '</div>';
+      $('trMesa').innerHTML = html;
+
+      // status
+      let st;
+      if (P.final) st = 'FIM DE JOGO';
+      else if (H.over) st = 'FIM DA MÃO';
+      else if (P.ask) st = P.ask.seat === my ? 'SUA DECISÃO' : 'DECIDINDO: ' + seatLabel(P.ask.seat);
+      else if (H.pending) st = callName(H.pending.value) + '!';
+      else if (myTurn) st = 'SUA VEZ';
+      else st = 'VEZ DE ' + seatLabel(H.turn);
+      $('trStatus').textContent = st;
+
+      // ações
+      let ah = '';
+      if (P.ask && P.ask.seat === my) {
+        ah += '<div class="w-full text-center text-2xl t-y">' + fmt(P.ask.text) + '</div>';
+        ah += P.ask.options.map((o) => '<button class="slot cut slot-lg ' + o.cls + '" data-act="ask" data-val="' + o.act + '">' + o.label + '</button>').join('');
+      } else if (myTurn && P.canCall) {
+        ah += '<button class="slot cut slot-lg slot-r" data-act="call">' + callName(nextValue(H.value)) + '!</button>';
+      }
+      $('trActions').innerHTML = ah;
+    }
+
+    // ---------- ações dos jogadores ----------
+    function send(a) {
+      if (ROLE === 'guest') {
+        if (!NET) return;
+        NET.k++;
+        const rt = window.__rt;
+        rt.set(rt.ref(rt.rdb, NET.path + '/act/' + NET.seat), { k: NET.k, a: JSON.stringify(a) }).catch(() => {});
+      } else if (G) handleAction(G.mySeat, a);
+    }
+    function handleAction(seat, a) {
+      if (!G || !G.hand) return;
+      if (a.type === 'play') {
+        if (G.waiter && G.waiter.seat === seat && !G.ask && !G.hand.pending && Number.isInteger(a.idx) && a.idx >= 0 && a.idx < G.hand.cards[seat].length) {
+          const w = G.waiter; G.waiter = null; w.res({ type: 'play', idx: a.idx });
+        }
+      } else if (a.type === 'call') {
+        if (G.waiter && G.waiter.seat === seat && !G.ask && canCall(teamOf(seat))) {
+          const w = G.waiter; G.waiter = null; w.res({ type: 'call' });
+        }
+      } else if (a.type === 'ask') {
+        if (G.ask && G.ask.seat === seat && G.ask.options.some((o) => o.act === a.val)) {
+          const k = G.ask; G.ask = null; k.res(a.val); render();
+        }
+      } else if (a.type === 'skip') {
+        if (G.skip) G.skip();
+      }
+    }
+    function waitHuman(seat) {
+      return new Promise((res) => { G.waiter = { seat, res }; render(); });
+    }
+    function ask(seat, text, options, def) {
+      return new Promise((res) => { G.ask = { seat, text, options, res, def }; render(); });
+    }
+    function playerLeft(seat) {
+      if (!G || !G.humans[seat]) return;
+      G.humans[seat] = false; G.names[seat] = null;
+      say('{S:' + seat + '} saiu. Um bot assumiu o lugar.');
+      if (G.waiter && G.waiter.seat === seat) { const w = G.waiter; G.waiter = null; w.res({ type: 'play', idx: botChoose(seat) }); }
+      if (G.ask && G.ask.seat === seat) { const k = G.ask; G.ask = null; k.res(k.def()); }
+      render();
+    }
+
+    // ---------- fluxo do jogo ----------
+    const firstHuman = (team) => { for (let s = 0; s < G.n; s++) if (teamOf(s) === team && G.humans[s]) return s; return -1; };
+    function deciderSeat(team, after) {
+      for (let k = 1; k <= G.n; k++) { const s = (after + k) % G.n; if (teamOf(s) === team && G.humans[s]) return s; }
+      return -1;
+    }
+    function seatOfTeam(team, after) {
+      for (let k = 1; k <= G.n; k++) { const s = (after + k) % G.n; if (teamOf(s) === team) return s; }
+      return 0;
+    }
+
+    function startEngine(n, humans, names, mySeat, online) {
       GID++;
       curVariant = pendingVariant; curVira = null;
-      G = { id: GID, variant: pendingVariant, n, score: [0, 0], dealer: Math.floor(Math.random() * n), over: false, log: [], hand: null, waiter: null, ask: null, skip: null, bubble: null, bseq: 0, final: null };
+      G = {
+        id: GID, variant: pendingVariant, n, humans: humans.slice(), names: names.slice(), mySeat, online: !!online,
+        score: [0, 0], dealer: Math.floor(Math.random() * n), over: false, log: [], hand: null, waiter: null, ask: null, skip: null,
+        bubble: null, bseq: 0, final: null, hid: 0, playSeq: 0, lastPlay: { seat: -1, seq: 0 }
+      };
+      VIEW.seen = {};
       $('trucoMenu').classList.add('hidden');
+      $('trucoLobby').classList.add('hidden');
       $('trucoGame').classList.remove('hidden');
-      $('trLog').innerHTML = '';
       newHand();
-    };
+    }
 
     function dealCards() {
       const deck = shuffle(makeDeck());
@@ -744,7 +942,7 @@
       for (let s = 0; s < G.n; s++) cards[s] = deck.splice(0, 3);
       const vira = curVariant === 'paulista' ? deck.pop() : null;
       curVira = vira;
-      cards[0].sort((a, b) => power(b) - power(a));
+      for (let s = 0; s < G.n; s++) if (G.humans[s]) cards[s].sort((a, b) => power(b) - power(a));
       return { cards, vira };
     }
 
@@ -755,14 +953,14 @@
       const e0 = G.score[0] === 11, e1 = G.score[1] === 11;
       const special = (e0 && e1) ? 'ferro' : ((e0 || e1) ? 'onze' : null);
       const dealt = dealCards();
+      G.hid++;
       G.hand = {
-        cards: dealt.cards, vira: dealt.vira, table: new Array(G.n).fill(null), order: [], round: 0, results: [],
+        hid: G.hid, cards: dealt.cards, vira: dealt.vira, table: new Array(G.n).fill(null), order: [], round: 0, results: [],
         turn: starter, roundStarter: starter, handStarter: starter, value: special === 'onze' ? 3 : 1,
-        lastCaller: -1, pending: null, special, over: false, reveal: false, winSeat: -1, justPlayed: -1, banner: null
+        lastCaller: -1, pending: null, special, over: false, reveal: null, winSeat: -1, banner: null
       };
-      sfx.deal();
       if (dealt.vira) say('Vira: ' + dealt.vira.r + SYM[dealt.vira.s] + ' \u2192 manilha é o ' + manilhaRank(dealt.vira.r) + '.');
-      say(seatName(starter) + ' começa a mão.');
+      say('{S:' + starter + '} começa a mão.');
       render();
       if (special === 'ferro') {
         say('MÃO DE FERRO! Cartas às cegas, vale 1 ponto e decide o jogo.');
@@ -776,61 +974,54 @@
       turnLoop(id);
     }
 
-    // mão de onze: o time com 11 decide jogar (vale 3) ou correr
     async function handleOnze(id) {
       const H = G.hand;
       const eleven = G.score[0] === 11 ? 0 : 1;
-      say(teamLabel(eleven) + ' estão na MÃO DE ONZE. A mão vale 3.');
+      say('{T:' + eleven + '} está na MÃO DE ONZE. A mão vale 3.');
       let play;
-      if (eleven === 0) {
-        H.reveal = G.n === 4;
+      const dec = firstHuman(eleven);
+      if (dec >= 0) {
+        H.reveal = G.n === 4 ? { to: dec, from: (dec + 2) % 4 } : null;
         render();
-        const r = await ask('MÃO DE ONZE! Vale 3 pontos.' + (H.reveal ? ' Veja as cartas do parceiro.' : ''), [
+        const r = await ask(dec, 'MÃO DE ONZE! Vale 3 pontos.' + (H.reveal ? ' Veja as cartas do parceiro.' : ''), [
           { act: 'play', label: 'JOGAR (VALE 3)', cls: 'slot-g' }, { act: 'run', label: 'CORRER (ELES +1)', cls: 'slot-r' }
-        ]);
+        ], () => (teamConf(eleven) >= 0.5 ? 'play' : 'run'));
         if (!alive(id)) return false;
         play = r === 'play';
-        H.reveal = false;
+        H.reveal = null;
       } else {
         await sleep(1100);
         if (!alive(id)) return false;
-        play = teamConf(1) >= 0.5 - rnd(0, 0.08);
-        say(play ? 'ELES toparam jogar.' : 'ELES correram da mão de onze!');
+        play = teamConf(eleven) >= 0.5 - rnd(0, 0.08);
+        say(play ? '{T:' + eleven + '} topou jogar.' : '{T:' + eleven + '} correu da mão de onze!');
       }
-      if (!play) { endHand(1 - eleven, 1, teamLabel(eleven) + ' correram'); return false; }
+      if (!play) { endHand(1 - eleven, 1, '{T:' + eleven + '} correu'); return false; }
       render();
       return true;
-    }
-
-    function waitHuman() {
-      return new Promise((res) => { G.waiter = res; renderActions(); });
-    }
-    function ask(text, options) {
-      return new Promise((res) => { G.ask = { text, options, res }; render(); });
     }
 
     async function turnLoop(id) {
       while (alive(id) && !G.hand.over) {
         const H = G.hand, seat = H.turn;
-        if (isHuman(seat)) {
-          render();
-          const a = await waitHuman();
+        if (G.humans[seat]) {
+          const a = await waitHuman(seat);
           if (!alive(id) || H.over) return;
           if (a.type === 'call') {
-            const res = await doCall(0);
+            const res = await doCall(seat);
             if (!alive(id) || H.over || res !== 'ok') return;
             continue;
           }
-          playCard(0, a.idx);
+          playCard(seat, a.idx);
         } else {
           render();
           await sleep(rnd(750, 1250));
           if (!alive(id) || H.over) return;
-          if (canCall(teamOf(seat)) && botWantsCall(seat)) {
+          if (!G.humans[seat] && canCall(teamOf(seat)) && botWantsCall(seat)) {
             const res = await doCall(seat);
             if (!alive(id) || H.over || res !== 'ok') return;
           }
-          playCard(seat, botChoose(seat));
+          if (!G.humans[seat]) playCard(seat, botChoose(seat));
+          else continue;
         }
         const cont = await afterPlay(id);
         if (!cont) return;
@@ -840,13 +1031,12 @@
     function playCard(seat, idx) {
       const H = G.hand;
       const c = H.cards[seat].splice(idx, 1)[0];
-      H.table[seat] = c; H.order.push(seat); H.justPlayed = seat; H.winSeat = -1;
+      H.table[seat] = c; H.order.push(seat); H.winSeat = -1;
       H.turn = (seat + 1) % G.n;
-      sfx.play();
+      G.playSeq++; G.lastPlay = { seat, seq: G.playSeq };
       const p = power(c);
-      say(seatName(seat) + ' jogou ' + cardName(c) + (p >= 11 && p !== 14 ? ' (manilha)' : '') + '.');
+      say('{S:' + seat + '} jogou ' + cardName(c) + (p >= 11 && p !== 14 ? ' (manilha)' : '') + '.');
       render();
-      H.justPlayed = -1;
       if (p === 14) bubble('ZAP!');
     }
 
@@ -866,9 +1056,8 @@
         wseat = H.order.filter((s) => seats.indexOf(s) >= 0)[0];
       } else { result = 'T'; wseat = -1; }
       H.results.push(result);
-      H.winSeat = wseat; H.justPlayed = -1;
-      sfx.round();
-      say('Rodada ' + H.results.length + ': ' + (result === 'T' ? 'EMPATOU (embuchou)!' : (result === 0 ? 'NÓS levamos.' : 'ELES levaram.')));
+      H.winSeat = wseat;
+      say('Rodada ' + H.results.length + ': ' + (result === 'T' ? 'EMPATOU (embuchou)!' : 'ponto do {T:' + result + '}.'));
       render();
       await sleep(1100);
       if (!alive(id)) return false;
@@ -902,30 +1091,20 @@
       const id = G.id, H = G.hand;
       H.over = true; H.pending = null; G.ask = null; G.waiter = null;
       G.score[team] = Math.min(12, G.score[team] + pts);
-      const mine = team === 0;
-      const msg = (mine ? 'NÓS ganhamos a mão! +' : 'ELES ganharam a mão. +') + pts + (reason ? ' (' + reason + ')' : '');
-      say(msg);
-      H.banner = { text: mine ? 'MÃO NOSSA! +' + pts : 'MÃO DELES +' + pts, sub: reason || '', mine };
-      if (mine) sfx.win(); else sfx.lose();
+      say('Mão para {T:' + team + '}! +' + pts + (reason ? ' (' + reason + ')' : ''));
+      H.banner = { team, pts, sub: reason || '' };
       render();
       if (G.score[team] >= 12) {
         await sleep(1600);
         if (!alive(id)) return;
-        gameOver(team);
+        G.over = true; G.final = { team };
+        render();
         return;
       }
       await Promise.race([sleep(2800), new Promise((r) => { G.skip = r; })]);
       G.skip = null;
       if (!alive(id)) return;
       newHand();
-    }
-
-    function gameOver(team) {
-      G.over = true;
-      const win = team === 0;
-      if (win) sfx.win(); else sfx.lose();
-      G.final = { win };
-      render();
     }
 
     // ---------- apostas ----------
@@ -939,41 +1118,37 @@
       let callerTeam = teamOf(seat), caller = seat, level = nextValue(H.value);
       for (;;) {
         H.pending = { team: callerTeam, value: level, seat: caller };
-        say(seatName(caller) + ': ' + callName(level) + '!');
+        say('{S:' + caller + '}: ' + callName(level) + '!');
         bubble(callName(level) + '!');
-        sfx.truco();
-        render();
         await sleep(1100);
         if (!alive(id)) return 'dead';
         const respTeam = 1 - callerTeam;
-        const resp = await getResponse(respTeam, level, callerTeam);
+        const dec = deciderSeat(respTeam, caller);
+        const resp = await getResponse(respTeam, level, callerTeam, caller, dec);
         if (!alive(id)) return 'dead';
         if (resp === 'run') {
           H.pending = null;
-          say(teamLabel(respTeam) + ' correram!');
-          endHand(callerTeam, H.value, teamLabel(respTeam) + ' correram');
+          say('{T:' + respTeam + '} correu!');
+          endHand(callerTeam, H.value, '{T:' + respTeam + '} correu');
           return 'ended';
         }
         H.value = level; H.lastCaller = callerTeam; H.pending = null;
         if (resp === 'accept') {
-          say(teamLabel(respTeam) + ' aceitaram! A mão vale ' + level + '.');
+          say('{T:' + respTeam + '} aceitou! A mão vale ' + level + '.');
           render();
           return 'ok';
         }
-        // aumentou
-        caller = respTeam === 0 ? 0 : (G.n === 2 ? 1 : (seat === 1 ? 3 : 1));
+        caller = dec >= 0 ? dec : seatOfTeam(respTeam, caller);
         callerTeam = respTeam; level = nextValue(level);
-        seat = caller;
       }
     }
 
-    async function getResponse(respTeam, level, callerTeam) {
-      const H = G.hand, id = G.id;
-      if (respTeam === 0) {
+    async function getResponse(respTeam, level, callerTeam, callerSeat, dec) {
+      const id = G.id;
+      if (dec >= 0) {
         const opts = [{ act: 'accept', label: 'ACEITAR', cls: 'slot-g' }, { act: 'run', label: 'CORRER', cls: 'slot-r' }];
         if (level < 12) opts.push({ act: 'raise', label: callName(nextValue(level)) + '!', cls: 'slot-y' });
-        const r = await ask('ELES pediram ' + callName(level) + '! A mão vai valer ' + level + '.', opts);
-        return r;
+        return await ask(dec, '{S:' + callerSeat + '} pediu ' + callName(level) + '! A mão vai valer ' + level + '.', opts, () => botRespond(level, callerTeam));
       }
       await sleep(rnd(900, 1500));
       if (!alive(id)) return 'dead';
@@ -1045,120 +1220,235 @@
       return arr[0].i;
     }
 
-    // ---------- renderização ----------
-    function render() {
-      if (!G) return;
-      const H = G.hand;
-      $('trScore0').textContent = G.score[0]; $('trScore1').textContent = G.score[1];
-      $('trBar0').style.setProperty('--v', (G.score[0] / 12 * 100) + '%');
-      $('trBar1').style.setProperty('--v', (G.score[1] / 12 * 100) + '%');
-      if (!H) return;
-      $('trValue').textContent = H.value;
-      $('trManilhaBox').classList.toggle('hidden', !H.vira);
-      if (H.vira) $('trManilha').textContent = manilhaRank(H.vira.r);
-      $('trRounds').innerHTML = [0, 1, 2].map((i) => {
-        const r = H.results[i];
-        if (r === undefined) return '<span class="rpip">&middot;</span>';
-        if (r === 'T') return '<span class="rpip t">=</span>';
-        return r === 0 ? '<span class="rpip w">&#10003;</span>' : '<span class="rpip l">&#10005;</span>';
-      }).join('');
+    // ---------- textos / telas ----------
+    const COMMON_RULES = '<p class="mb-2"><span class="t-y">Baralho:</span> 40 cartas (sem 8, 9, 10 e coringas). Cada um recebe 3 cartas por mão.</p>' +
+      '<p class="mb-2"><span class="t-y">Mão:</span> melhor de 3 rodadas. Quem ganhar 2 vence a mão. Vence o jogo quem chegar a 12 pontos.</p>';
+    const END_RULES = '<p class="mb-2"><span class="t-y">Apostas:</span> a mão vale 1. Peça TRUCO (3), depois SEIS, NOVE e DOZE. O adversário aceita, corre (você ganha os pontos de antes) ou aumenta.</p>' +
+      '<p class="mb-2"><span class="t-y">Empates:</span> se a 1ª rodada empata, quem ganhar a 2ª leva a mão. Se a 2ª ou a 3ª empata, vale quem ganhou a 1ª. Se tudo empata, leva quem abriu a mão.</p>' +
+      '<p class="mb-2"><span class="t-y">Mão de onze:</span> com 11 pontos você vê as cartas e escolhe jogar (vale 3) ou correr (o rival ganha 1). <span class="t-y">Mão de ferro:</span> 11 x 11, cartas às cegas, vale o jogo.</p>' +
+      '<p><span class="t-y">Online:</span> crie uma sala, passe o código (seu nickname) para os amigos e inicie. Vagas vazias viram bots, e quem sair no meio da partida é substituído por um bot.</p>';
+    const VARIANTS = {
+      paulista: {
+        title: 'TRUCO PAULISTA',
+        rules: COMMON_RULES +
+          '<p class="mb-2"><span class="t-y">Vira:</span> depois de dar as cartas, uma carta é virada no meio da mesa. A <span class="t-y">manilha</span> é a carta de valor logo acima do vira (vira A &rarr; manilha 2; vira K &rarr; manilha A; vira 3 &rarr; manilha 4).</p>' +
+          '<p class="mb-2"><span class="t-y">Força:</span> manilha &gt; 3 &gt; 2 &gt; A &gt; K &gt; J &gt; Q &gt; 7 &gt; 6 &gt; 5 &gt; 4.</p>' +
+          '<p class="mb-2"><span class="t-y">Entre manilhas (naipe):</span> &clubs; paus (Zap) &gt; &hearts; copas &gt; &spades; espadas &gt; &diams; ouros.</p>' + END_RULES
+      },
+      mineiro: {
+        title: 'TRUCO MINEIRO',
+        rules: COMMON_RULES +
+          '<p class="mb-2"><span class="t-y">Força das cartas:</span> 3 &gt; 2 &gt; A &gt; K &gt; J &gt; Q &gt; 7 &gt; 6 &gt; 5 &gt; 4.</p>' +
+          '<p class="mb-2"><span class="t-y">Manilhas fixas (as mais fortes):</span> 4 de paus (Zap) &gt; 7 de copas &gt; A de espadas &gt; 7 de ouros.</p>' + END_RULES
+      }
+    };
+    const rtOK = () => !!(window.__rt && window.__rt.rdb && window.__rt.ready());
 
-      const myTurn = !H.over && !G.over && isHuman(H.turn) && !H.pending && !G.ask && H.table[0] === null;
-      let html = '';
-      // assentos
-      for (let s = G.n - 1; s >= 0; s--) {
-        const pos = seatPos(s);
-        const turn = !H.over && H.turn === s && !H.pending;
-        if (s === 0) {
-          const blind = H.special === 'ferro';
-          html += '<div class="seat s-b hand-me' + (turn ? ' turn' : '') + '"><div class="shand">' +
-            H.cards[0].map((c, i) => blind
-              ? '<div data-idx="' + i + '" data-act="card">' + backHTML('red', myTurn ? 'can' : 'dim') + '</div>'
-              : '<div data-idx="' + i + '" data-act="card">' + faceHTML(c, myTurn ? 'can' : 'dim') + '</div>').join('') +
-            '</div><div class="plate ttl seatname">' + seatName(0) + '</div></div>';
-        } else {
-          const showFace = H.reveal && s === 2;
-          const cards = H.cards[s].map((c) => showFace ? faceHTML(c) : backHTML('blue')).join('');
-          const nameP = '<div class="plate ttl seatname">' + seatName(s) + '</div>';
-          html += '<div class="seat s-' + pos + ' mini' + (turn ? ' turn' : '') + '">' + (pos === 't' ? nameP + '<div class="shand">' + cards + '</div>' : nameP + '<div class="shand">' + cards + '</div>') + '</div>';
+    function showOnly(which) {
+      ['trucoMenu', 'trucoLobby', 'trucoGame'].forEach((id) => $(id).classList.toggle('hidden', id !== which));
+    }
+
+    window.openTruco = function (variant) {
+      pendingVariant = variant === 'mineiro' ? 'mineiro' : 'paulista';
+      const V = VARIANTS[pendingVariant];
+      $('trMenuTitle').textContent = V.title;
+      $('trGameTitle').textContent = V.title;
+      $('trRules').innerHTML = V.rules;
+      switchTab('truco');
+      window.trucoOnLeave();
+      $('trOnlineReq').classList.toggle('hidden', !!window.currentUserData);
+      showOnly('trucoMenu');
+    };
+    window.openBaralho = function () { switchTab('baralho'); };
+    window.leaveTruco = function () { switchTab('baralho'); };
+
+    window.trucoOnLeave = function () {
+      G = null; GID++;
+      VIEW = { pub: null, myHand: [], mySeat: 0, seen: {} };
+      leaveNet();
+    };
+
+    // jogo local
+    window.startTruco = function (n) {
+      ROLE = 'local';
+      const humans = new Array(n).fill(false); humans[0] = true;
+      startEngine(n, humans, new Array(n).fill(null), 0, false);
+    };
+
+    // ---------- online ----------
+    function leaveNet() {
+      if (NET) {
+        const rt = window.__rt, net = NET;
+        NET = null; net.closing = true;
+        net.unsubs.forEach((u) => { try { u(); } catch (e) {} });
+        try {
+          if (net.od) net.od.cancel();
+          if (net.host) rt.remove(net.ref).catch(() => {});
+          else rt.update(net.ref, { ['left/' + net.seat]: true }).catch(() => {});
+        } catch (e) {}
+      }
+      ROLE = 'local';
+    }
+
+    function newNet(path, seat, host) {
+      const rt = window.__rt;
+      return { path, ref: rt.ref(rt.rdb, path), seat, host, k: 0, lastPub: '', lastH: {}, actK: {}, unsubs: [], started: false, data: null, closing: false };
+    }
+
+    window.createTrucoRoom = async function (n) {
+      if (!rtOK()) return;
+      if (!window.currentUserData) { window.openAuthModal('login'); return; }
+      const rt = window.__rt;
+      const nick = window.currentUserData.nickname, code = String(nick).toUpperCase();
+      leaveNet();
+      const path = 'rooms/' + gameKey() + '/' + code;
+      const slots = new Array(n).fill(''); slots[0] = nick;
+      NET = newNet(path, 0, true); ROLE = 'host';
+      try {
+        await rt.set(NET.ref, { host: nick, mode: n, slots, go: false, round: 0 });
+        NET.od = rt.onDisc(NET.ref);
+        NET.od.remove();
+      } catch (e) { alert('Não foi possível criar a sala.'); leaveNet(); return; }
+      listenRoom();
+      showOnly('trucoLobby');
+    };
+
+    window.joinTrucoRoom = async function () {
+      if (!rtOK()) return;
+      if (!window.currentUserData) { window.openAuthModal('login'); return; }
+      const rt = window.__rt;
+      const code = $('trJoinInput').value.trim().toUpperCase();
+      if (!code) return;
+      const me = window.currentUserData.nickname;
+      const path = 'rooms/' + gameKey() + '/' + code;
+      let slot = -1, err = '';
+      try {
+        const res = await rt.tx(rt.ref(rt.rdb, path), (d) => {
+          if (d === null) return d;
+          slot = d.slots.indexOf(me);
+          if (slot < 0) {
+            if (d.go) { err = 'ini'; return; }
+            const order = d.mode === 2 ? [1] : [1, 3, 2];
+            const f = order.find((i) => !d.slots[i]);
+            if (f === undefined) { err = 'cheia'; return; }
+            slot = f;
+          }
+          d.slots[slot] = me;
+          return d;
+        });
+        if (!res.committed || !res.snapshot.exists()) throw err || 'nao';
+      } catch (e) {
+        alert(e === 'cheia' ? 'A sala já está cheia!' : e === 'ini' ? 'A partida já começou.' : e === 'nao' ? 'Sala não encontrada para ' + code + ' (confira se é o mesmo tipo de truco).' : 'Erro ao entrar na sala.');
+        return;
+      }
+      leaveNet();
+      NET = newNet(path, slot, false); ROLE = 'guest';
+      NET.od = rt.onDisc(rt.ref(rt.rdb, path + '/left/' + slot));
+      NET.od.set(true);
+      listenRoom();
+      showOnly('trucoLobby');
+    };
+
+    function listenRoom() {
+      const rt = window.__rt, net = NET;
+      const unsub = rt.onValue(net.ref, (snap) => {
+        if (!NET || NET !== net) return;
+        if (!snap.exists()) {
+          if (!net.closing) {
+            net.closing = true;
+            net.unsubs.forEach((u) => { try { u(); } catch (e) {} });
+            NET = null; ROLE = 'local';
+            alert('A sala foi encerrada pelo host.');
+            window.openTruco(pendingVariant);
+          }
+          return;
         }
+        const d = snap.val();
+        net.data = d;
+        if (net.host) {
+          const left = d.left || {};
+          Object.keys(left).forEach((k) => {
+            const s = +k;
+            if (!left[k]) return;
+            if (!net.started) rt.update(net.ref, { ['slots/' + s]: '', ['left/' + s]: null }).catch(() => {});
+            else { if (G && G.humans[s]) playerLeft(s); rt.update(net.ref, { ['left/' + s]: null }).catch(() => {}); }
+          });
+          if (!net.started) renderLobby(d);
+        } else {
+          if (!net.started) renderLobby(d);
+          if (d.go && !net.started) { net.started = true; VIEW.seen = {}; showOnly('trucoGame'); }
+          if (net.started && d.pub) {
+            try {
+              VIEW.pub = JSON.parse(d.pub);
+              VIEW.myHand = JSON.parse(d['h' + net.seat] || '[]');
+              VIEW.mySeat = net.seat;
+              pendingVariant = VIEW.pub.variant;
+              curVariant = VIEW.pub.variant;
+              draw();
+            } catch (e) {}
+          }
+        }
+      });
+      net.unsubs.push(unsub);
+      if (net.host) {
+        const unsubAct = rt.onValue(rt.ref(rt.rdb, net.path + '/act'), (snap) => {
+          if (!NET || NET !== net) return;
+          const v = snap.val() || {};
+          Object.keys(v).forEach((k) => {
+            const s = +k, o = v[k];
+            if (o && o.k > (net.actK[s] || 0)) {
+              net.actK[s] = o.k;
+              try { handleAction(s, JSON.parse(o.a)); } catch (e) {}
+            }
+          });
+        });
+        net.unsubs.push(unsubAct);
       }
-      // zona central
-      html += '<div class="zone">';
-      if (H.vira) html += '<div class="vira">' + faceHTML(H.vira, '') + '<div class="plate ttl" style="font-size:8px;padding:2px 6px">VIRA</div></div>';
-      for (let s = 0; s < G.n; s++) {
-        const c = H.table[s];
-        if (!c) continue;
-        const cls = (H.justPlayed === s ? 'drop ' : '') + (H.winSeat === s ? 'win' : '');
-        html += '<div class="pl pl-' + seatPos(s) + '">' + faceHTML(c, cls) + '</div>';
-      }
-      html += '</div>';
-      // banners / decisão
-      if (H.banner && !G.final) {
-        html += '<div class="ov" data-act="skip"><div class="ttl ' + (H.banner.mine ? 't-g' : 't-r') + '" style="font-size:clamp(14px,3.5vw,24px)">' + H.banner.text + '</div>' +
-          (H.banner.sub ? '<div class="text-2xl t-dim">' + H.banner.sub + '</div>' : '') +
-          '<div class="text-xl t-dim">toque para continuar</div></div>';
-      }
-      if (G.final) {
-        html += '<div class="ov"><div class="ttl ' + (G.final.win ? 't-g' : 't-r') + '" style="font-size:clamp(16px,4vw,28px)">' + (G.final.win ? 'VOCÊS VENCERAM!' : 'ELES VENCERAM') + '</div>' +
-          '<div class="text-3xl t-y">' + G.score[0] + ' x ' + G.score[1] + '</div>' +
-          '<div class="flex flex-wrap justify-center gap-3"><button class="slot cut slot-y" data-act="again">JOGAR DE NOVO</button><button class="slot cut slot-c" data-act="menu">MENU DO TRUCO</button></div></div>';
-      }
-      if (G.bubble) html += '<div class="bubble">' + G.bubble + '</div>';
-      $('trMesa').innerHTML = html;
-      renderStatus(myTurn);
-      renderActions();
     }
 
-    function renderStatus(myTurn) {
-      const H = G.hand;
-      let t = '...';
-      if (G.final) t = 'FIM DE JOGO';
-      else if (H.over) t = 'FIM DA MÃO';
-      else if (G.ask) t = 'SUA DECISÃO';
-      else if (H.pending) t = callName(H.pending.value) + '!';
-      else if (myTurn) t = 'SUA VEZ';
-      else t = 'VEZ DE ' + seatName(H.turn);
-      $('trStatus').textContent = t;
-    }
-
-    function renderActions() {
-      const box = $('trActions');
-      if (!G || !G.hand) { box.innerHTML = ''; return; }
-      const H = G.hand;
+    function renderLobby(d) {
+      $('trLobbyTitle').textContent = VARIANTS[pendingVariant].title + ' ONLINE';
+      $('trLobbyCode').textContent = NET.path.split('/').pop();
+      const n = d.mode;
       let html = '';
-      if (G.ask) {
-        html += '<div class="w-full text-center text-2xl t-y">' + G.ask.text + '</div>';
-        html += G.ask.options.map((o) => '<button class="slot cut slot-lg ' + o.cls + '" data-act="ask" data-val="' + o.act + '">' + o.label + '</button>').join('');
-      } else if (!H.over && isHuman(H.turn) && !H.pending && G.waiter && canCall(0)) {
-        const v = nextValue(H.value);
-        html += '<button class="slot cut slot-lg slot-r" data-act="call">' + callName(v) + '!</button>';
+      for (let i = 0; i < n; i++) {
+        const nm = d.slots[i];
+        const team = n === 4 ? (i % 2 === 0 ? 'DUPLA A' : 'DUPLA B') : (i === 0 ? 'JOGADOR 1' : 'JOGADOR 2');
+        html += '<div class="plate flex justify-between items-center" style="display:flex"><span class="ttl t-dim" style="font-size:9px">' + team + '</span>' +
+          (nm ? '<span class="ttl t-c" style="font-size:10px">' + String(nm).replace(/[<>&]/g, '') + (i === NET.seat ? ' (VOCÊ)' : '') + '</span>' : '<span class="text-xl t-dim">vago &mdash; bot</span>') + '</div>';
       }
-      box.innerHTML = html;
+      $('trLobbySlots').innerHTML = html;
+      const count = d.slots.filter(Boolean).length;
+      $('trLobbyMsg').textContent = NET.host ? (count + ' jogador(es) na sala. Vagas vazias serão preenchidas por bots.') : 'Aguardando o host iniciar a partida...';
+      $('trLobbyStart').classList.toggle('hidden', !NET.host);
     }
+
+    window.startTrucoOnline = async function () {
+      if (!NET || !NET.host || NET.started || !NET.data) return;
+      const rt = window.__rt, d = NET.data;
+      const n = d.mode;
+      const humans = [], names = [];
+      for (let i = 0; i < n; i++) { humans[i] = !!d.slots[i]; names[i] = d.slots[i] || null; }
+      NET.started = true;
+      try { await rt.update(NET.ref, { go: true, round: (d.round || 0) + 1 }); } catch (e) {}
+      startEngine(n, humans, names, 0, true);
+    };
+
+    window.leaveTrucoRoom = function () { window.openTruco(pendingVariant); };
 
     // ---------- cliques ----------
     $('trucoGame').addEventListener('click', (e) => {
-      if (!G) return;
       const t = e.target.closest('[data-act]');
       if (!t) return;
       const act = t.getAttribute('data-act');
-      if (act === 'card') {
-        if (G.waiter && !G.ask && !G.hand.pending && G.hand.table[0] === null && isHuman(G.hand.turn)) {
-          const w = G.waiter; G.waiter = null;
-          w({ type: 'play', idx: parseInt(t.getAttribute('data-idx'), 10) });
-        }
-      } else if (act === 'call') {
-        if (G.waiter) { const w = G.waiter; G.waiter = null; w({ type: 'call' }); }
-      } else if (act === 'ask') {
-        if (G.ask) { const a = G.ask; G.ask = null; a.res(t.getAttribute('data-val')); render(); }
-      } else if (act === 'skip') {
-        if (G.skip) G.skip();
-      } else if (act === 'again') {
-        startTruco(G.n);
-      } else if (act === 'menu') {
-        openTruco(G.variant);
-      }
+      if (act === 'card') send({ type: 'play', idx: parseInt(t.getAttribute('data-idx'), 10) });
+      else if (act === 'call') send({ type: 'call' });
+      else if (act === 'ask') send({ type: 'ask', val: t.getAttribute('data-val') });
+      else if (act === 'skip') send({ type: 'skip' });
+      else if (act === 'again') {
+        if (ROLE === 'host' && G) { startEngine(G.n, G.humans, G.names, 0, true); }
+        else if (ROLE === 'local' && G) window.startTruco(G.n);
+      } else if (act === 'menu') window.openTruco(pendingVariant);
     });
   })();
   </script>
@@ -1209,6 +1499,7 @@
     let rdb = null;
     try { rdb = getDatabase(app); } catch (e) { console.warn('Realtime Database indisponível:', e); }
     const rtRoom = (game, code) => rtRef(rdb, 'rooms/' + game + '/' + code);
+    window.__rt = { get rdb() { return rdb; }, ref: rtRef, set: rtSet, update: rtUpdate, remove: rtRemove, onValue: rtOnValue, tx: rtTx, onDisc: rtOnDisc, ready: () => requireOnline() };
 
     // ==========================================
     // SINTETIZADOR DE EFEITOS SONOROS (WEB AUDIO API)
